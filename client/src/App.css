@@ -1,0 +1,190 @@
+body {
+  font-family: 'Roboto', sans-serif;
+  box-sizing: border-box;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  background-image: url(https://www.mobilexpense.com/hubfs/MobileXpense/backgrounds/background-new-mobile.svg);
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.formContainer {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+h1 {
+  text-align: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 2vw;
+}
+
+.form form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form input {
+
+  background-color: #B3DAF2;
+  border: none;
+  height: 30px;
+  width: 300px;
+  border-radius: 10px;
+  margin: 1vh 0;
+  text-align: left;
+  padding-left: 5px;
+
+}
+
+.form input:focus {
+  border: none;
+  outline: none;
+  box-shadow: 0px 0px 0px 1px black inset;
+
+}
+
+.select {
+  background-color: #B3DAF2;
+  border-radius: 10px;
+  border-bottom: 0;
+  padding-left: 5px;
+  margin: 1vh 0;
+}
+
+.form input::placeholder {
+  font-weight: 600;
+  text-align: left;
+  margin-left: 5px;
+  color: black;
+}
+
+button {
+  text-decoration: none;
+  font-weight: 400;
+  background-color: #B3F2BD;
+  border: none;
+  padding: 10px;
+  border-radius: 20px;
+  font-weight: 800;
+  transition: all 0.5s;
+  margin: 1vh auto 2vh auto;
+  cursor: pointer;
+  max-width: 300px;
+}
+
+button:hover {
+  background-color: #91C49A;
+}
+
+.balanceContainer {
+  height: 100px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  justify-content: center;
+  margin: 2vh 5px;
+  text-align: center;
+  color: white;
+  font-weight: 700;
+}
+
+.totalText {
+  font-size: 25px;
+  margin-top: 5px;
+}
+
+/** Estilos condicionales **/
+
+.modal {
+  position: absolute;
+  z-index: 1;
+  width: 100vw;
+  height: 100vh;
+  vertical-align: middle;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(10px);
+}
+
+.modal-main {
+  width: 300px;
+  padding: 30px;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+label {
+  font-size: 20px;
+  margin-right: 10px;
+}
+
+.successfulRegister {
+  font-size: 0.8rem;
+  width: 100%;
+  text-align: center;
+  color: #7FA26C;
+  padding: 0 10px;
+  font-weight: 600;
+}
+
+.invalidFeedback {
+  display: block;
+  padding: 0 10px;
+  font-size: 0.7rem;
+  text-align: center;
+  color: red;
+  font-size: 0.8rem;
+  max-width: 280px;
+  margin-bottom: 1vh;
+}
+
+.invalidFeedback p {
+  padding: 0;
+  margin: 0.2vh;
+  text-align: center;
+  font-weight: 600;
+}
+
+
+.tableContainer{
+  text-align: center;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.tableContainer{
+  width: 80%;
+}
+
+.modalError{
+  color: red;
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+
+@media only screen and (max-width: 600px) {
+  .formContainer{
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
