@@ -13,8 +13,8 @@ export default function StoreProvider({ children }) {
     const [data, setData] = useState()
     const [balance, setBalance] = useState()
 
-    const getOperations = async () => {
-        const response = await OperationService.getOperations(token)
+    const getOperations = async (offset = 0) => {
+        const response = await OperationService.getOperations(token, offset)
         setData(response.data.data)
     }
 
@@ -48,8 +48,8 @@ export default function StoreProvider({ children }) {
             const response = await AuthService.register(formData)
             return response.data
         },
-        updateStoreData: async () => {
-            getOperations()
+        updateStoreData: async (offset) => {
+            getOperations(offset)
             getBalance()
         }
     }

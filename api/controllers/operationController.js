@@ -5,13 +5,17 @@ const validateError = require("../helpers/validateError")
 
 const operationController = {
     getOperations : async (req, res) => {
-        let operations = [];
+        let operations;
+        let totalRecords;
         try{
-            operations = await db.Operation.findAll({where: {user_id: res.locals.data.id}, limit : 10, order : [["created_at", "DESC"]]})
+            operations = await db.Operation.findAndCountAll({where: {user_id: res.locals.data.id},offset: Number(req.query.offset), limit : 10, order : [["created_at", "DESC"]]})
+            totalRecords = await db.Operation.count({where: {user_id: res.locals.data.id}})
+
         }catch(err){
             return res.json(new CustomError(500, "Ocurrio un error interno, intentelo nuevamente"))
         }
-        return res.json(new SuccessfulResponse(200, undefined, operations))
+        let response = {data : operations.rows, queryRecords : operations.count, totalRecords}
+        return res.json(new SuccessfulResponse(200, undefined, response))
     },
     createOperation : async (req, res) => {
         try {

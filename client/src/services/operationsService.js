@@ -5,8 +5,8 @@ class OperationsService{
         baseURL: "http://localhost:4000",
     })
 
-    getOperations = async (token) => {
-        return await this.instance.get("/operations", {headers: {Authorization: `Bearer ${token}`}})
+    getOperations = async (token, offset) => {
+        return await this.instance.get(`/operations?offset=${offset}`, {headers: {Authorization: `Bearer ${token}`}})
     }
 
     createOperation = async (token, operation) => {
