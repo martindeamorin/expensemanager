@@ -1,13 +1,10 @@
-import axios from "axios";
+import InstanceAxios from "./instanceAxios";
 
-class OperationsService{
-    instance = axios.create({
-        baseURL: "http://localhost:4000",
-        withCredentials: true,
-        headers:{
-            "Access-Control-Allow-Origin" : "http://localhost:4000"
-        }
-    })
+class OperationsService extends InstanceAxios{
+
+    constructor(){
+        super()
+    }
 
     getOperations = async (offset) => {
         return await this.instance.get(`/operations?offset=${offset}`)

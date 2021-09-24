@@ -1,10 +1,9 @@
-import axios from "axios";
+import InstanceAxios from "./instanceAxios";
+class AuthService extends InstanceAxios{
 
-class AuthService {
-    instance = axios.create({
-        baseURL: "http://localhost:4000",
-        withCredentials: true
-    })
+    constructor(){
+        super()
+    }
 
     register = async (body) => {
         return await this.instance.post("/auth/register", body)

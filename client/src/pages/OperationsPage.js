@@ -29,9 +29,6 @@ export default function OperationsPage() {
         logout()
     }
 
-
-
-
     return (
         <div className="container">
             <h1>Gestor de gastos</h1>
