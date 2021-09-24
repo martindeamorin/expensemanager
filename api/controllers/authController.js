@@ -48,9 +48,13 @@ const authController = {
                 const response = new SuccessfulResponse(200, "Usuario logueado con éxito");
                     
                     sign(JSON.stringify(userData), process.env.JWT_SECRET, function (err, token) {
-                        !err ?
-                            res.json({ ...response, token }) :
-                            res.json(new CustomError(500, "Ocurrio un error en el servidor, intentelo de nuevo, por favor."))
+                        if(!err){
+                            res.cookie("remember", "true", { maxAge: 31536000000, httpOnly: false, overwrite: true })
+                            res.cookie('token' , token, { maxAge: 31536000000, httpOnly: true, overwrite: true })
+                            return res.json({ ...response, token });
+                        } else{
+                            return res.json(new CustomError(500, "Ocurrio un error en el servidor, intentelo de nuevo, por favor."));
+                        }
                     });
 
             } else{
@@ -59,6 +63,12 @@ const authController = {
         } else{
             return res.json(new CustomError(401, "El email o la contraseña es incorrecto.", undefined))
         }
+    },
+
+    logout: (req, res) => {
+        res.clearCookie("remember");
+        res.clearCookie("token");
+        return res.json( new SuccessfulResponse(200, "Usuario deslogueado con éxito"))
     }
 }
 

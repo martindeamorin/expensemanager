@@ -6,7 +6,7 @@ import OperationModal from "../components/OperationModal";
 
 
 export default function OperationsPage() {
-    const { data, balance } = useStore();
+    const { data, balance, logout } = useStore();
     const [selectedOperation, setSelectedOperation] = useState(undefined);
     const [edit, setEdit] = useState(false);
 
@@ -25,6 +25,9 @@ export default function OperationsPage() {
         setEdit(false)
     }
 
+    const handleLogout = () => {
+        logout()
+    }
 
 
 
@@ -32,6 +35,7 @@ export default function OperationsPage() {
     return (
         <div className="container">
             <h1>Gestor de gastos</h1>
+            <button onClick={() => handleLogout()} style={{backgroundColor : "red", color : "white"}}>Cerrar sesion</button>
             {
                 balance &&
                 <div style={{ display: "flex", justifyContent: "space-around" }}>

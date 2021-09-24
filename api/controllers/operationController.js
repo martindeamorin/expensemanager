@@ -5,6 +5,7 @@ const validateError = require("../helpers/validateError")
 
 const operationController = {
     getOperations : async (req, res) => {
+
         let operations;
         let totalRecords;
         try{

@@ -5,7 +5,7 @@ export default function PublicRouter({component: Component, ...rest}) {
     const store = useStore();
     return (
         <Route {...rest}>
-            {!store.user ? <Component /> : <Redirect to={{ pathname: '/operations'}} />}
+            {!store.persist ? <Component /> : <Redirect to={{ pathname: '/operations'}} />}
         </Route>
     )
 }

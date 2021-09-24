@@ -75,6 +75,12 @@ h1 {
   color: black;
 }
 
+.form input[type="checkbox"]{
+  display: inline-block;
+  height: 15px;
+  width: 15px;
+}
+
 button {
   text-decoration: none;
   font-weight: 400;

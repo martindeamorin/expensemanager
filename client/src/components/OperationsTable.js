@@ -11,94 +11,96 @@ import operationsService from '../services/operationsService';
 import { useStore } from "../store/StoreProvider";
 
 
-function OperationsTable({ data,  handleEdit }) {
-  const {token, updateStoreData} = useStore();
+function OperationsTable({ data, handleEdit }) {
+  const { updateStoreData } = useStore();
   const [offset, setOffset] = useState(0)
   const [page, setPage] = useState(1)
   const handleDelete = async (id) => {
-    const response= await operationsService.deleteOperation(token, id);
-    if(response.data.code === 200){
+    const response = await operationsService.deleteOperation(id);
+    if (response.data.code === 200) {
       return updateStoreData()
     }
   }
 
   useEffect(() => {
 
-    offset === 0 ? setPage(1) : setPage((offset / 10)+1);
+    offset === 0 ? setPage(1) : setPage((offset / 10) + 1);
     updateStoreData(offset)
   }, [offset])
 
   const handlePageView = async (type) => {
-    switch(type){
+    switch (type) {
       case "prev":
-        if(offset >= 10){
+        if (offset >= 10) {
           setOffset(offset - 10)
 
         }
         break;
       case "next":
-        if(!(offset+10 >= data.totalRecords)){
+        if (!(offset + 10 >= data.totalRecords)) {
           setOffset(offset + 10)
         }
         break;
+      default:
+        break;
     }
-  } 
+  }
 
   return (
     <div className="tableContainer">
       {
         data.data.length !== 0 &&
 
-      <div style={{display: 'flex', justifyContent: "space-between"}}>
-      <button onClick={() => handlePageView("prev")}>PREV</button>
-      <p>{page}/{Math.ceil(data.totalRecords/10)}</p>
-      <button onClick={() => handlePageView("next")}>NEXT</button>
+        <div style={{ display: 'flex', justifyContent: "space-between" }}>
+          <button onClick={() => handlePageView("prev")}>PREV</button>
+          <p>{page}/{Math.ceil(data.totalRecords / 10)}</p>
+          <button onClick={() => handlePageView("next")}>NEXT</button>
 
-      </div>
+        </div>
       }
 
-    <TableContainer component={Paper}>
-      <Table size="small" aria-label="a dense table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Tipo</TableCell>
-            <TableCell align="center">Monto</TableCell>
-            <TableCell align="center">Concepto</TableCell>
-            <TableCell align="center">Fecha</TableCell>
-            <TableCell align="center">Acciones</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-
-          {
-            data.data.length === 0 &&
+      <TableContainer component={Paper}>
+        <Table size="small" aria-label="a dense table">
+          <TableHead>
             <TableRow>
-              <TableCell align="center" colSpan="6">No se han encontrado operaciones</TableCell>
+              <TableCell>Tipo</TableCell>
+              <TableCell align="center">Monto</TableCell>
+              <TableCell align="center">Concepto</TableCell>
+              <TableCell align="center">Fecha</TableCell>
+              <TableCell align="center">Acciones</TableCell>
             </TableRow>
-          }
+          </TableHead>
+          <TableBody>
 
-          {data.data.map((element) => (
-            <TableRow key={element.id}>
-              <TableCell component="th" scope="row">
-                {Number(element.type) ? "Ingreso" : "Egreso"}
-              </TableCell>
-              <TableCell align="center">{element.amount}</TableCell>
-              <TableCell align="center">{element.concept}</TableCell>
-              <TableCell align="center">{element.date}</TableCell>
-              <TableCell align="center">
-                <IconButton onClick={() => handleEdit(element)}>
-                  <Edit/>
-                </IconButton>
-                <IconButton onClick={() => handleDelete(element.id)}>
-                  <Delete/>
-                </IconButton>
+            {
+              data.data.length === 0 &&
+              <TableRow>
+                <TableCell align="center" colSpan="6">No se han encontrado operaciones</TableCell>
+              </TableRow>
+            }
 
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+            {data.data.map((element) => (
+              <TableRow key={element.id}>
+                <TableCell component="th" scope="row">
+                  {Number(element.type) ? "Ingreso" : "Egreso"}
+                </TableCell>
+                <TableCell align="center">{element.amount}</TableCell>
+                <TableCell align="center">{element.concept}</TableCell>
+                <TableCell align="center">{element.date}</TableCell>
+                <TableCell align="center">
+                  <IconButton onClick={() => handleEdit(element)}>
+                    <Edit />
+                  </IconButton>
+                  <IconButton onClick={() => handleDelete(element.id)}>
+                    <Delete />
+                  </IconButton>
+
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </div>
   );
 }

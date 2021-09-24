@@ -59,7 +59,7 @@ export default function useForm() {
                 required: "required",
                 name: "password"
 
-            },
+            }
         ],
         onSubmit: formData => store.login(formData),
         button: { type: "submit", name: "Acceder" }

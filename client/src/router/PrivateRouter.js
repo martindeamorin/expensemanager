@@ -5,7 +5,7 @@ export default function PrivateRoute({component: Component, ...rest}) {
     const store = useStore();
     return (
         <Route {...rest}>
-            {store.user ? <Component /> : <Redirect to={{ pathname: ''}} />}
+            {store.persist ? <Component /> : <Redirect to={{ pathname: ''}} />}
         </Route>
     )
 }

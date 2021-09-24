@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { MenuItem, FormControl, InputLabel, Select } from "@material-ui/core";
+import { MenuItem, FormControl, Select } from "@material-ui/core";
 import { useStore } from "../store/StoreProvider";
 import operationsService from "../services/operationsService"
 
@@ -8,12 +8,12 @@ export default function OperationModal({ edit, operation, onClose }) {
     const [amount, setAmount] = useState(edit ? operation.amount : "");
     const [date, setDate] = useState(edit ? operation.date : "");
     const [concept, setConcept] = useState(edit ? operation.concept : "");
-    const { token, updateStoreData } = useStore()
+    const { updateStoreData } = useStore()
     const [error, setError] = useState(undefined);
 
     const handleAdd = (e, operation) => {
         e.preventDefault()
-        operationsService.createOperation(token, operation)
+        operationsService.createOperation(operation)
             .then(({ data }) => {
                 switch (data.code) {
                     case 201:
@@ -22,6 +22,7 @@ export default function OperationModal({ edit, operation, onClose }) {
                         onClose()
                         break;
                     case 400:
+                    case 401:
                         setError(data.data)
                         break;
                     default:
@@ -32,7 +33,7 @@ export default function OperationModal({ edit, operation, onClose }) {
 
     const handleUpdate = (e, operation) => {
         e.preventDefault()
-        operationsService.updateOperation(token, operation)
+        operationsService.updateOperation(operation)
             .then(({ data }) => {
                 switch (data.code) {
                     case 200:
@@ -41,6 +42,7 @@ export default function OperationModal({ edit, operation, onClose }) {
                         onClose()
                         break;
                     case 400:
+                    case 401:
                         setError(data.data)
                         break;
                     default:
